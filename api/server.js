@@ -5,13 +5,12 @@ const helmet = require('helmet');
 const path = require('path');
 require('dotenv').config();
 
-const applyRouter = require('./routes/apply');
+const applyRouter = require('../routes/apply');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Security and request parsing middlewares
-// Customize Helmet Content Security Policy to allow styling and scripts from local serving
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -26,15 +25,15 @@ app.use(helmet({
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve frontend static files relative to root
+app.use(express.static(path.join(__dirname, '../public')));
 
 // API Routes
 app.use('/api/v1', applyRouter);
 
 // Fallback to index.html for single-page applications
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 // Database connection

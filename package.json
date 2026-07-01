@@ -2,10 +2,10 @@
   "name": "vanguard-network",
   "version": "1.0.0",
   "description": "Secure, decoupled network platform for elite creators, editors, and production crews.",
-  "main": "server.js",
+  "main": "api/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node api/server.js",
+    "dev": "nodemon api/server.js"
   },
   "keywords": [
     "security",
