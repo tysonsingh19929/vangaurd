@@ -82,16 +82,34 @@ html, body {
 }
 
 .brand-logo {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.3rem;
-  letter-spacing: 0.2rem;
-  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   text-decoration: none;
+  line-height: 1.1;
   transition: var(--transition-smooth);
 }
 
-.brand-logo:hover {
+.backed-by-small {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  text-transform: lowercase;
+  opacity: 0.8;
+  margin-bottom: 2px;
+}
+
+.vanguard-large {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+}
+
+.brand-logo:hover .vanguard-large {
   color: var(--accent-gold);
   text-shadow: 0 0 10px rgba(226, 184, 87, 0.3);
 }
@@ -155,8 +173,8 @@ html, body {
   height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 60px 48px;
+  justify-content: flex-start;
+  padding: 80px 48px 60px 48px;
   overflow: hidden;
   border-right: 1px solid var(--border-color);
 }
@@ -247,7 +265,7 @@ html, body {
   flex: 0.9;
   display: flex;
   flex-direction: column;
-  padding: 60px 48px;
+  padding: 40px 48px 60px 48px;
 }
 
 .form-pane-container {
@@ -741,9 +759,26 @@ html, body {
     height: auto;
     border-right: none;
     border-bottom: 1px solid var(--border-color);
-    padding: 60px 40px 40px 40px;
+    padding: 30px 24px 10px 24px;
     align-items: center;
     text-align: center;
+  }
+  
+  .info-pane .hero-headline {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .info-pane .hero-subtitle-form {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    margin-top: 0;
+  }
+  
+  .info-pane .hero-subhead {
+    font-size: 0.92rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
   }
   
   .info-content {
@@ -757,7 +792,7 @@ html, body {
   }
 
   .form-pane {
-    padding: 40px 24px 60px 24px;
+    padding: 5px 20px 40px 20px;
   }
   
   .form-pane-container {
