@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vanguard is a double-blind, investor-secured network for elite creators, drone pilots, and editors with guaranteed escrow and absolute identity protection.">
+  <title>VANGUARD | Decoupled Elite Production Network</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo" id="brand-logo">[VANGUARD]</a>
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span class="status-text">Cohort 1: Applications Active</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    
+    <!-- Section 1: The Velvet Rope Hero -->
+    <section class="hero-section" id="hero">
+      <div class="glow-bg"></div>
+      <div class="hero-container">
+        <h1 class="hero-headline">By Invitation Only.</h1>
+        <p class="hero-subhead">
+          The double-blind, investor-secured network for elite creators, editors, and production crews. 
+          We guarantee 100% upfront milestone escrow. Your identity remains protected. Your work remains secure.
+        </p>
+        <div class="hero-cta-wrapper">
+          <button class="cta-button" id="cta-btn-apply">Apply for Evaluation</button>
+        </div>
+        <p class="trust-banner">Backed by Premier Lifestyle & Hospitality Institutional Investors.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: The Double-Blind Core Pillars -->
+    <section class="pillars-section" id="pillars">
+      <div class="pillars-container">
+        <div class="pillar-card">
+          <div class="pillar-number">01</div>
+          <h3 class="pillar-title">Financial Immunity</h3>
+          <p class="pillar-desc">
+            Clients fund 100% of the project escrow before you begin production. Payments release instantly upon automated milestone verification. No invoicing. No ghosting.
+          </p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-number">02</div>
+          <h3 class="pillar-title">Masked Identities</h3>
+          <p class="pillar-desc">
+            Our platform scrubs your real name, username, and face from clients. You are evaluated solely on your live production metrics, past delivery timelines, and performance ratings.
+          </p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-number">03</div>
+          <h3 class="pillar-title">Multi-Crew Cohesion</h3>
+          <p class="pillar-desc">
+            Work solo or automatically team up with matching regional drone pilots, local on-camera talent, or professional editors under single, secure multi-party campaigns.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: The Universal Score Meter -->
+    <section class="score-section" id="score-meter">
+      <div class="score-container">
+        <div class="score-graphic-panel">
+          <div class="dial-wrapper">
+            <svg class="dial-svg" viewBox="0 0 200 200">
+              <!-- Dial Track background -->
+              <path class="dial-track" d="M 30,170 A 80,80 0 1,1 170,170" fill="none" stroke="#222222" stroke-width="8" stroke-linecap="round"></path>
+              <!-- Glowing active dial -->
+              <path class="dial-progress" id="dial-progress" d="M 30,170 A 80,80 0 1,1 170,170" fill="none" stroke="url(#dial-gradient)" stroke-width="10" stroke-linecap="round" stroke-dasharray="380" stroke-dashoffset="190"></path>
+              
+              <!-- Definitions for Gradients -->
+              <defs>
+                <linearGradient id="dial-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#E2B857" />
+                  <stop offset="50%" stop-color="#10B981" />
+                  <stop offset="100%" stop-color="#3B82F6" />
+                </linearGradient>
+              </defs>
+            </svg>
+            
+            <div class="dial-center">
+              <span class="dial-score-num" id="live-score">500</span>
+              <span class="dial-score-label">Universal Score</span>
+            </div>
+            
+            <!-- Dial Markers -->
+            <div class="dial-markers">
+              <span class="marker min-marker">0</span>
+              <span class="marker max-marker">1000</span>
+            </div>
+          </div>
+
+          <!-- Interactive Simulator Controls (Adds WOW factor and Engagement) -->
+          <div class="dial-controls">
+            <h4 class="controls-title">Score Calculator Sandbox</h4>
+            <div class="control-group">
+              <div class="control-label-row">
+                <label for="slider-followers">Estimated Followers</label>
+                <span id="val-followers">50k</span>
+              </div>
+              <input type="range" id="slider-followers" min="5000" max="250000" step="5000" value="50000" class="slider-input">
+            </div>
+            <div class="control-group">
+              <div class="control-label-row">
+                <label for="slider-engagement">Avg. Engagement Rate</label>
+                <span id="val-engagement">4.0%</span>
+              </div>
+              <input type="range" id="slider-engagement" min="0.5" max="15.0" step="0.5" value="4.0" class="slider-input">
+            </div>
+            <div class="control-group checkbox-group">
+              <input type="checkbox" id="check-verified" checked>
+              <label for="check-verified">Verified Business Profile (+100 pts)</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="score-info-panel">
+          <h2 class="section-title">The Universal Score Meter</h2>
+          <p class="section-desc">
+            Every applicant is assigned a dynamic Universal Score. This number recalculates based on live API engagement data, contract deadline accuracy, and verified output quality. High scores unlock exclusive, large-budget campaigns automatically.
+          </p>
+          
+          <div class="tier-list">
+            <div class="tier-item" id="tier-unverified">
+              <div class="tier-indicator tier-low"></div>
+              <div class="tier-details">
+                <span class="tier-range">0–400</span>
+                <span class="tier-name">Unverified Pipeline</span>
+                <span class="tier-status">Limited profile visibility. Entry-tier task limits.</span>
+              </div>
+            </div>
+            <div class="tier-item active-tier" id="tier-accredited">
+              <div class="tier-indicator tier-mid"></div>
+              <div class="tier-details">
+                <span class="tier-range">400–700</span>
+                <span class="tier-name">Accredited Operator</span>
+                <span class="tier-status">Standard escrow access. Full portfolio listings active.</span>
+              </div>
+            </div>
+            <div class="tier-item" id="tier-vanguard">
+              <div class="tier-indicator tier-high"></div>
+              <div class="tier-details">
+                <span class="tier-range">700–1000</span>
+                <span class="tier-name">Vanguard Operator (Top Tier)</span>
+                <span class="tier-status">Priority access to institutional campaigns. Multi-crew auto-match.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4 & 5: Onboarding Container -->
+    <section class="onboarding-section" id="apply-now">
+      <div class="form-wrapper">
+        
+        <!-- Multi-step Form Card -->
+        <div class="onboarding-card" id="form-card">
+          
+          <!-- Stepper Header -->
+          <div class="stepper-header">
+            <div class="step-indicator active" id="step-dot-1">1</div>
+            <div class="step-line"></div>
+            <div class="step-indicator" id="step-dot-2">2</div>
+            <div class="step-line"></div>
+            <div class="step-indicator" id="step-dot-3">3</div>
+          </div>
+
+          <form id="onboarding-form" novalidate>
+            
+            <!-- STEP 1: Core Identity -->
+            <div class="form-step active-step" id="step-1">
+              <h2 class="form-step-title">Core Identity</h2>
+              <p class="form-step-subtitle">Internal Eyes Only — Strictly Encrypted</p>
+              
+              <div class="input-group">
+                <label for="legalName" class="input-label">Full Legal Name</label>
+                <input type="text" id="legalName" name="legalName" class="form-input" placeholder="e.g., Alexander Vance" required>
+                <span class="error-msg" id="err-legalName">Legal name is required</span>
+              </div>
+
+              <div class="input-group">
+                <label for="email" class="input-label">Email Address</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="e.g., alex@vance.com" required>
+                <span class="error-msg" id="err-email">A valid email address is required</span>
+              </div>
+
+              <div class="input-group">
+                <label for="whatsapp" class="input-label">WhatsApp Number</label>
+                <input type="tel" id="whatsapp" name="whatsapp" class="form-input" placeholder="e.g., +971 50 123 4567" required>
+                <span class="error-msg" id="err-whatsapp">A WhatsApp number is required (with country code)</span>
+              </div>
+
+              <!-- Warning Box -->
+              <div class="warning-box">
+                <span class="warning-icon">🔒</span>
+                <p class="warning-text">
+                  Your personal contact data is strictly confidential. It is fully encrypted and never shared with hiring parties or external systems.
+                </p>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="form-nav-btn next-btn" id="btn-to-step2">Continue to Technical Info</button>
+              </div>
+            </div>
+
+            <!-- STEP 2: Technical Arsenal & Location -->
+            <div class="form-step" id="step-2">
+              <h2 class="form-step-title">Technical Arsenal</h2>
+              <p class="form-step-subtitle">Defining your operational capacity</p>
+
+              <div class="input-group">
+                <label for="primaryRole" class="input-label">Primary Role</label>
+                <select id="primaryRole" name="primaryRole" class="form-input select-input" required>
+                  <option value="" disabled selected>Select your core specialty...</option>
+                  <option value="Talent">On-Camera Talent</option>
+                  <option value="DP">Director of Photography</option>
+                  <option value="Editor">Video Editor</option>
+                  <option value="Drone">Drone Pilot</option>
+                  <option value="Writer">Scriptwriter</option>
+                </select>
+                <span class="error-msg" id="err-primaryRole">Please select a primary role</span>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Niche Focus</label>
+                <div class="checkbox-grid">
+                  <label class="checkbox-container">
+                    <input type="checkbox" name="niches" value="Luxury Hotels">
+                    <span class="checkbox-custom"></span>
+                    Luxury Hotels
+                  </label>
+                  <label class="checkbox-container">
+                    <input type="checkbox" name="niches" value="Fine Dining">
+                    <span class="checkbox-custom"></span>
+                    Fine Dining
+                  </label>
+                  <label class="checkbox-container">
+                    <input type="checkbox" name="niches" value="Street Food">
+                    <span class="checkbox-custom"></span>
+                    Street Food
+                  </label>
+                  <label class="checkbox-container">
+                    <input type="checkbox" name="niches" value="Commercial Products">
+                    <span class="checkbox-custom"></span>
+                    Commercial Products
+                  </label>
+                  <label class="checkbox-container">
+                    <input type="checkbox" name="niches" value="Travel/Adventures">
+                    <span class="checkbox-custom"></span>
+                    Travel/Adventures
+                  </label>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="gearSetup" class="input-label">Hardware/Software Stack</label>
+                <input type="text" id="gearSetup" name="gearSetup" class="form-input" placeholder="e.g., Sony FX3, DJI Mavic 3 Pro, DaVinci Resolve Studio" required>
+                <span class="error-msg" id="err-gearSetup">Hardware/software stack setup is required</span>
+              </div>
+
+              <div class="input-group">
+                <label for="location" class="input-label">Primary Operating Location</label>
+                <input type="text" id="location" name="location" class="form-input" placeholder="e.g., Dubai, UAE / Willing to travel within 100km" required>
+                <span class="error-msg" id="err-location">Primary location description is required</span>
+              </div>
+
+              <div class="form-actions split-actions">
+                <button type="button" class="form-nav-btn prev-btn" id="btn-back-to-step1">Back</button>
+                <button type="button" class="form-nav-btn next-btn" id="btn-to-step3">Continue to Verification</button>
+              </div>
+            </div>
+
+            <!-- STEP 3: Verification & Portfolio -->
+            <div class="form-step" id="step-3">
+              <h2 class="form-step-title">Verification & Portfolio</h2>
+              <p class="form-step-subtitle">Establishing raw metrics and validation</p>
+
+              <div class="input-group">
+                <label for="instagramHandle" class="input-label">Instagram Professional Handle</label>
+                <input type="text" id="instagramHandle" name="instagramHandle" class="form-input" placeholder="e.g., @username" required>
+                <span class="error-msg" id="err-instagramHandle">Professional handle is required</span>
+                
+                <div class="disclaimer-text">
+                  Used exclusively via secure Meta Graph API access to analyze real-time video performance, retention rates, and audience demographics. Your handle remains fully hidden from clients.
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="portfolioUrl" class="input-label">Single Best Showreel/Portfolio Link</label>
+                <input type="url" id="portfolioUrl" name="portfolioUrl" class="form-input" placeholder="e.g., Linktree, Behance, Google Drive path" required>
+                <span class="error-msg" id="err-portfolioUrl">A valid link to your showreel or portfolio is required</span>
+              </div>
+
+              <!-- General Form Error Notice -->
+              <div class="form-alert-banner" id="form-error-banner" style="display: none;"></div>
+
+              <div class="form-actions split-actions">
+                <button type="button" class="form-nav-btn prev-btn" id="btn-back-to-step2">Back</button>
+                <button type="submit" class="form-nav-btn submit-btn" id="btn-submit-form">Finalize Application for Council Review</button>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+
+        <!-- Section 5: The Post-Submission Success Screen -->
+        <div class="onboarding-card success-card" id="success-card" style="display: none;">
+          <div class="success-header">
+            <div class="success-icon-badge">
+              <svg class="success-check-svg" viewBox="0 0 52 52">
+                <circle class="success-check-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="success-check-path" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+              </svg>
+            </div>
+            <h2 class="success-title">Application Locked.</h2>
+            <div class="assigned-id-badge">
+              <span class="assigned-id-label">SECURE BLIND-ID</span>
+              <span class="assigned-id-value" id="success-assigned-id">VNG-XXXXX</span>
+            </div>
+          </div>
+          <div class="success-body">
+            <p class="success-desc">
+              Your profile has been logged into our onboarding queue. Our automated data script is running internal compliance checks against your production data to calculate your initial Universal Score baseline.
+            </p>
+            <div class="info-alert-box">
+              <span class="alert-icon">✉️</span>
+              <p class="alert-text">
+                Check your inbox. A system authorization token has been sent to your registered email address.
+              </p>
+            </div>
+          </div>
+          <div class="success-footer">
+            <button class="footer-reset-btn" id="btn-reset-form">Register Another Identity</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="vanguard-footer">
+    <div class="footer-container">
+      <p class="footer-copyright">&copy; 2026 VANGUARD. All rights reserved. Double-Blind Secured Operations.</p>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Escrow Mechanics</a>
+        <a href="#" class="footer-link">Meta Integration</a>
+        <a href="#" class="footer-link">Council Governance</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Frontend Javascript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
