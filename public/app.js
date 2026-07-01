@@ -211,13 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const isEmailValid = validateField(emailInput, document.getElementById('err-email'));
     const isWhatsappValid = validateField(whatsappInput, document.getElementById('err-whatsapp'));
     const isRoleValid = validateField(primaryRoleSelect, document.getElementById('err-primaryRole'));
-    const isGearValid = validateField(gearSetupInput, document.getElementById('err-gearSetup'));
     const isLocationValid = validateField(locationInput, document.getElementById('err-location'));
     const isInstaValid = validateField(instagramHandleInput, document.getElementById('err-instagramHandle'));
     const isPortfolioValid = validateField(portfolioUrlInput, document.getElementById('err-portfolioUrl'));
 
     const isFormValid = isNameValid && isEmailValid && isWhatsappValid && isRoleValid && 
-                        isGearValid && isLocationValid && isInstaValid && isPortfolioValid;
+                        isLocationValid && isInstaValid && isPortfolioValid;
 
     if (!isFormValid) {
       errorBanner.textContent = "Please fill in all mandatory application fields before submitting.";

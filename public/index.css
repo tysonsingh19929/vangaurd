@@ -883,3 +883,11 @@ html, body {
 .success-bullets-list li:last-child {
   margin-bottom: 0;
 }
+
+.optional-text {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: none;
+  font-weight: 400;
+  margin-left: 4px;
+}
