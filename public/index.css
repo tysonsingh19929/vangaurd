@@ -185,8 +185,19 @@ html, body {
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.01em;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   color: var(--text-primary);
+}
+
+.hero-subtitle-form {
+  font-family: var(--font-sans);
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 500;
+  color: var(--accent-gold);
+  margin-top: -10px;
+  margin-bottom: 24px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .hero-subhead {

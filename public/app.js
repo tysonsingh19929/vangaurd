@@ -35,6 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setSyncState('saved', `Resumed draft session [${localAssignedId}]`);
   }
 
+  // Generate dynamic active operators count (> 500)
+  const statusOperatorCountEl = document.getElementById('status-operator-count');
+  if (statusOperatorCountEl) {
+    const randomCount = Math.floor(Math.random() * 200) + 501; // 501 - 700
+    statusOperatorCountEl.textContent = `${randomCount} Active Operators`;
+  }
+
   // ==========================================
   // SYNC INDICATOR STATE CONTROL
   // ==========================================
