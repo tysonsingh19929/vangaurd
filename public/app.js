@@ -43,6 +43,88 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
+  // CUSTOM DROP-DOWN DROPDOWN LOGIC
+  // ==========================================
+  const customRoleWrapper = document.getElementById('customRoleWrapper');
+  const customRoleTrigger = document.getElementById('customRoleTrigger');
+  const customRoleValue = customRoleTrigger.querySelector('.custom-select-value');
+  const customRoleOptions = document.getElementById('customRoleOptions');
+  const customOptions = customRoleOptions.querySelectorAll('.custom-option');
+
+  // Toggle dropdown on trigger click
+  customRoleTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = customRoleWrapper.classList.contains('open');
+    if (isOpen) {
+      closeCustomSelect();
+    } else {
+      openCustomSelect();
+    }
+  });
+
+  function openCustomSelect() {
+    customRoleWrapper.classList.add('open');
+    customRoleOptions.style.display = 'block';
+  }
+
+  function closeCustomSelect() {
+    customRoleWrapper.classList.remove('open');
+    customRoleOptions.style.display = 'none';
+  }
+
+  // Handle option selection
+  customOptions.forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const val = opt.getAttribute('data-value');
+      const text = opt.textContent;
+
+      // Update native select value
+      primaryRoleSelect.value = val;
+      
+      // Update custom UI
+      customRoleValue.textContent = text;
+      customRoleValue.classList.add('selected');
+      customRoleTrigger.classList.remove('invalid-field');
+
+      // Update selected state in option elements
+      customOptions.forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+
+      // Trigger change event to fire autosaves and validation checks
+      primaryRoleSelect.dispatchEvent(new Event('change'));
+
+      closeCustomSelect();
+    });
+  });
+
+  // Close dropdown on click outside
+  document.addEventListener('click', () => {
+    closeCustomSelect();
+  });
+
+  // Sync custom dropdown with native select
+  function syncCustomSelect() {
+    const selectedVal = primaryRoleSelect.value;
+    if (selectedVal) {
+      const matchingOpt = Array.from(customOptions).find(o => o.getAttribute('data-value') === selectedVal);
+      if (matchingOpt) {
+        customRoleValue.textContent = matchingOpt.textContent;
+        customRoleValue.classList.add('selected');
+        customOptions.forEach(o => o.classList.remove('selected'));
+        matchingOpt.classList.add('selected');
+      }
+    } else {
+      customRoleValue.textContent = "Select your core role...";
+      customRoleValue.classList.remove('selected');
+      customOptions.forEach(o => o.classList.remove('selected'));
+    }
+  }
+
+  // Initial sync (handles autocompletion / page refreshes)
+  syncCustomSelect();
+
+  // ==========================================
   // SYNC INDICATOR STATE CONTROL
   // ==========================================
   function setSyncState(state, message) {
@@ -187,6 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function validateField(inputElement, errorElement) {
     if (!inputElement.value.trim()) {
       inputElement.classList.add('invalid-field');
+      if (inputElement.id === 'primaryRole') {
+        const trig = document.getElementById('customRoleTrigger');
+        if (trig) trig.classList.add('invalid-field');
+      }
       errorElement.classList.add('visible');
       return false;
     }
@@ -199,6 +285,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     inputElement.classList.remove('invalid-field');
+    if (inputElement.id === 'primaryRole') {
+      const trig = document.getElementById('customRoleTrigger');
+      if (trig) trig.classList.remove('invalid-field');
+    }
     errorElement.classList.remove('visible');
     return true;
   }

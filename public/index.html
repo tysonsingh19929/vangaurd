@@ -92,7 +92,8 @@
 
               <div class="input-group">
                 <label for="primaryRole" class="input-label">Primary Specialty</label>
-                <select id="primaryRole" name="primaryRole" class="form-input select-input" required>
+                <!-- Native select is hidden but kept for form bindings and auto-saves -->
+                <select id="primaryRole" name="primaryRole" class="form-input select-input" required style="display: none;">
                   <option value="" disabled selected>Select your core role...</option>
                   <option value="Talent">On-Camera Talent</option>
                   <option value="DP">Director of Photography</option>
@@ -100,6 +101,26 @@
                   <option value="Drone">Drone Pilot</option>
                   <option value="Writer">Scriptwriter</option>
                 </select>
+
+                <!-- Modern Custom Dropdown UI -->
+                <div class="custom-select-wrapper" id="customRoleWrapper">
+                  <div class="custom-select-trigger" id="customRoleTrigger">
+                    <span class="custom-select-value">Select your core role...</span>
+                    <span class="custom-select-arrow">
+                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="custom-select-options" id="customRoleOptions">
+                    <div class="custom-option" data-value="Talent">On-Camera Talent</div>
+                    <div class="custom-option" data-value="DP">Director of Photography</div>
+                    <div class="custom-option" data-value="Editor">Video Editor</div>
+                    <div class="custom-option" data-value="Drone">Drone Pilot</div>
+                    <div class="custom-option" data-value="Writer">Scriptwriter</div>
+                  </div>
+                </div>
+
                 <span class="error-msg" id="err-primaryRole">Specialty selection is required</span>
               </div>
 

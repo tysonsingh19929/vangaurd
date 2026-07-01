@@ -368,6 +368,103 @@ html, body {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+/* Custom Select Box styling */
+.custom-select-wrapper {
+  position: relative;
+  user-select: none;
+  width: 100%;
+}
+
+.custom-select-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.custom-select-trigger:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.custom-select-wrapper.open .custom-select-trigger {
+  border-color: var(--accent-gold);
+  background-color: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 10px rgba(226, 184, 87, 0.15);
+}
+
+.custom-select-value {
+  color: #4a4a4a; /* Placeholder style initially */
+  transition: color 0.2s ease;
+}
+
+.custom-select-value.selected {
+  color: var(--text-primary);
+}
+
+.custom-select-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.custom-select-wrapper.open .custom-select-arrow {
+  transform: rotate(180deg);
+  color: var(--accent-gold);
+}
+
+.custom-select-options {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background-color: #0e0e0e;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  z-index: 150;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: none;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+.custom-option {
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.custom-option:hover {
+  background-color: rgba(226, 184, 87, 0.08);
+  color: var(--accent-gold);
+  padding-left: 20px;
+}
+
+.custom-option.selected {
+  background-color: rgba(226, 184, 87, 0.12);
+  color: var(--accent-gold);
+  font-weight: 500;
+}
+
+/* Invalid state for custom select */
+.custom-select-trigger.invalid-field {
+  border-color: #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.03) !important;
+}
+
 .form-input.invalid-field {
   border-color: var(--accent-red);
   background-color: rgba(239, 68, 68, 0.02);
