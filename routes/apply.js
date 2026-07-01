@@ -112,10 +112,108 @@ The Vanguard Onboarding Engine
   }
 }
 
-// POST /api/v1/apply
+// POST /api/v1/autosave (Saves partial data in the background as draft)
+router.post('/autosave', async (req, res) => {
+  try {
+    const { 
+      assignedId,
+      email,
+      legalName, 
+      whatsapp, 
+      instagramHandle, 
+      primaryRole, 
+      niches, 
+      gearSetup, 
+      location, 
+      portfolioUrl 
+    } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Email is required to initialize draft auto-save." 
+      });
+    }
+
+    let application = null;
+
+    // 1. Try finding by assignedId
+    if (assignedId) {
+      application = await Application.findOne({ internalId: assignedId });
+    }
+
+    // 2. Fallback to finding by email
+    if (!application) {
+      application = await Application.findOne({ email });
+    }
+
+    if (application) {
+      // Skip auto-save if already submitted
+      if (application.applicationStatus !== 'Draft') {
+        return res.json({ 
+          success: true, 
+          message: "Application is already submitted, auto-save skipped.",
+          assignedId: application.internalId 
+        });
+      }
+
+      // Update fields if provided
+      if (legalName !== undefined) application.legalName = legalName;
+      if (whatsapp !== undefined) application.whatsapp = whatsapp;
+      if (instagramHandle !== undefined) application.instagramHandle = instagramHandle;
+      if (primaryRole !== undefined) application.primaryRole = primaryRole;
+      if (niches !== undefined) application.niches = niches;
+      if (gearSetup !== undefined) application.gearSetup = gearSetup;
+      if (location !== undefined) application.location = location;
+      if (portfolioUrl !== undefined) application.portfolioUrl = portfolioUrl;
+
+      await application.save();
+
+      return res.json({
+        success: true,
+        message: "Draft updated successfully.",
+        assignedId: application.internalId
+      });
+    } else {
+      // Create new draft
+      const draftId = `VNG-DRAFT-${crypto.randomInt(10000, 99999)}`;
+      
+      const newDraft = new Application({
+        internalId: draftId,
+        email,
+        legalName: legalName || "",
+        whatsapp: whatsapp || "",
+        instagramHandle: instagramHandle || "",
+        primaryRole: primaryRole || undefined,
+        niches: niches || [],
+        gearSetup: gearSetup || "",
+        location: location || "",
+        portfolioUrl: portfolioUrl || "",
+        applicationStatus: 'Draft'
+      });
+
+      await newDraft.save();
+
+      return res.status(201).json({
+        success: true,
+        message: "Draft initialized in system database.",
+        assignedId: draftId
+      });
+    }
+  } catch (error) {
+    console.error("Autosave Error:", error);
+    return res.status(500).json({ 
+      success: false, 
+      message: "Failed to auto-save draft." 
+    });
+  }
+});
+
+// POST /api/v1/apply (Finalizes and submits application)
 router.post('/apply', async (req, res) => {
   try {
     const { 
+      assignedId,
       legalName, 
       email, 
       whatsapp, 
@@ -127,56 +225,94 @@ router.post('/apply', async (req, res) => {
       portfolioUrl 
     } = req.body;
 
-    // Validate inputs
+    // Validate inputs for final submission
     if (!legalName || !email || !whatsapp || !instagramHandle || !primaryRole || !gearSetup || !location || !portfolioUrl) {
       return res.status(400).json({ 
         success: false, 
-        message: "All mandatory application fields must be completed." 
+        message: "All mandatory application fields must be completed before finalizing." 
       });
     }
 
-    // 1. Check if email already applied to prevent spam
-    const existingApp = await Application.findOne({ email });
-    if (existingApp) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "This email address is already registered in our system." 
-      });
+    let application = null;
+
+    // 1. Try finding by assignedId
+    if (assignedId) {
+      application = await Application.findOne({ internalId: assignedId });
     }
 
-    // 2. Generate a completely blind, random marketplace ID
-    const blindId = `VNG-${crypto.randomInt(10000, 99999)}`;
+    // 2. Fallback to finding by email
+    if (!application) {
+      application = await Application.findOne({ email });
+    }
 
-    // 3. Create entry in MongoDB
-    const newApplication = new Application({
-      internalId: blindId,
-      legalName,
-      email,
-      whatsapp,
-      instagramHandle,
-      primaryRole,
-      niches: niches || [],
-      gearSetup,
-      location,
-      portfolioUrl
-    });
+    const finalBlindId = `VNG-${crypto.randomInt(10000, 99999)}`;
 
-    await newApplication.save();
+    if (application) {
+      // Check if already finalized
+      if (application.applicationStatus !== 'Draft') {
+        return res.status(400).json({
+          success: false,
+          message: "This application has already been submitted and is locked."
+        });
+      }
 
-    // 4. Trigger background task to call Meta API and process profile stats
-    triggerMetaGraphProcessing(blindId, instagramHandle);
+      // Promote Draft to Final Application
+      application.internalId = finalBlindId;
+      application.legalName = legalName;
+      application.email = email;
+      application.whatsapp = whatsapp;
+      application.instagramHandle = instagramHandle;
+      application.primaryRole = primaryRole;
+      application.niches = niches || [];
+      application.gearSetup = gearSetup;
+      application.location = location;
+      application.portfolioUrl = portfolioUrl;
+      application.applicationStatus = 'Pending_API_Review';
+      application.createdAt = new Date();
 
-    return res.status(201).json({
+      await application.save();
+    } else {
+      // If no draft exists, check duplicate email
+      const existingApp = await Application.findOne({ email });
+      if (existingApp) {
+        return res.status(400).json({ 
+          success: false, 
+          message: "This email address is already registered in our system." 
+        });
+      }
+
+      // Create new application directly
+      application = new Application({
+        internalId: finalBlindId,
+        legalName,
+        email,
+        whatsapp,
+        instagramHandle,
+        primaryRole,
+        niches: niches || [],
+        gearSetup,
+        location,
+        portfolioUrl,
+        applicationStatus: 'Pending_API_Review'
+      });
+
+      await application.save();
+    }
+
+    // Trigger Meta Graph background checks
+    triggerMetaGraphProcessing(finalBlindId, instagramHandle);
+
+    return res.status(200).json({
       success: true,
       message: "Application logged securely.",
-      assignedId: blindId
+      assignedId: finalBlindId
     });
 
   } catch (error) {
-    console.error("System Core Error:", error);
+    console.error("System Finalize Error:", error);
     return res.status(500).json({ 
       success: false, 
-      message: "Internal server entry failure. Please check database connectivity." 
+      message: "Internal server submission failure." 
     });
   }
 });
