@@ -13,7 +13,7 @@
       "destination": "/public/app.js"
     },
     {
-      "source": "/((?!api/v1).*).*",
+      "source": "/:path*",
       "destination": "/public/index.html"
     }
   ]
