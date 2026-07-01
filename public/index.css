@@ -808,3 +808,78 @@ html, body {
     padding: 32px 18px;
   }
 }
+
+/* Protocol Security Section styles */
+.protocol-security-section {
+  margin-top: 32px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.protocol-title {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-gold);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.protocol-list {
+  list-style: none;
+}
+
+.protocol-list li {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  position: relative;
+  padding-left: 18px;
+}
+
+.protocol-list li::before {
+  content: "•";
+  color: var(--accent-gold);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1rem;
+}
+
+.protocol-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Success Card Bullets */
+.success-bullets-list {
+  list-style: none;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.success-bullets-list li {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.success-bullets-list li::before {
+  content: "■";
+  color: var(--accent-emerald);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 0.75rem;
+}
+
+.success-bullets-list li:last-child {
+  margin-bottom: 0;
+}
