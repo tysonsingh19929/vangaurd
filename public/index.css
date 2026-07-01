@@ -82,16 +82,34 @@ html, body {
 }
 
 .brand-logo {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 1.25rem;
-  letter-spacing: 0.15rem;
-  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   text-decoration: none;
+  line-height: 1.1;
   transition: var(--transition-smooth);
 }
 
-.brand-logo:hover {
+.social-by-small {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  text-transform: lowercase;
+  opacity: 0.8;
+  margin-bottom: 2.5px;
+}
+
+.vanguard-large {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+.brand-logo:hover .vanguard-large {
   color: var(--accent-gold);
   text-shadow: 0 0 10px rgba(226, 184, 87, 0.3);
 }
