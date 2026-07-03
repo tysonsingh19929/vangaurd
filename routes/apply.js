@@ -226,10 +226,10 @@ router.post('/apply', async (req, res) => {
     } = req.body;
 
     // Validate inputs for final submission
-    if (!legalName || !email || !whatsapp || !instagramHandle || !primaryRole || !location || !portfolioUrl) {
+    if (!legalName || !email || !whatsapp || !instagramHandle || !primaryRole || !location) {
       return res.status(400).json({ 
         success: false, 
-        message: "All mandatory application fields (except gear stack) must be completed before finalizing." 
+        message: "All mandatory application fields (except gear stack and portfolio) must be completed before finalizing." 
       });
     }
 
@@ -266,7 +266,7 @@ router.post('/apply', async (req, res) => {
       application.niches = niches || [];
       application.gearSetup = gearSetup || "";
       application.location = location;
-      application.portfolioUrl = portfolioUrl;
+      application.portfolioUrl = portfolioUrl || "";
       application.applicationStatus = 'Pending_API_Review';
       application.createdAt = new Date();
 
@@ -292,7 +292,7 @@ router.post('/apply', async (req, res) => {
         niches: niches || [],
         gearSetup: gearSetup || "",
         location,
-        portfolioUrl,
+        portfolioUrl: portfolioUrl || "",
         applicationStatus: 'Pending_API_Review'
       });
 

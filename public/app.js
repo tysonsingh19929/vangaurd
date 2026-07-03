@@ -303,10 +303,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const isRoleValid = validateField(primaryRoleSelect, document.getElementById('err-primaryRole'));
     const isLocationValid = validateField(locationInput, document.getElementById('err-location'));
     const isInstaValid = validateField(instagramHandleInput, document.getElementById('err-instagramHandle'));
-    const isPortfolioValid = validateField(portfolioUrlInput, document.getElementById('err-portfolioUrl'));
 
     const isFormValid = isNameValid && isEmailValid && isWhatsappValid && isRoleValid && 
-                        isLocationValid && isInstaValid && isPortfolioValid;
+                        isLocationValid && isInstaValid;
 
     if (!isFormValid) {
       errorBanner.textContent = "Please fill in all mandatory application fields before submitting.";
