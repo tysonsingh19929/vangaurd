@@ -125,7 +125,9 @@ router.post('/autosave', async (req, res) => {
       niches, 
       gearSetup, 
       location, 
-      portfolioUrl 
+      portfolioUrl,
+      isTeamApplication,
+      teamMemberIdentifier
     } = req.body;
 
     if (!email) {
@@ -166,6 +168,8 @@ router.post('/autosave', async (req, res) => {
       if (gearSetup !== undefined) application.gearSetup = gearSetup;
       if (location !== undefined) application.location = location;
       if (portfolioUrl !== undefined) application.portfolioUrl = portfolioUrl;
+      if (isTeamApplication !== undefined) application.isTeamApplication = isTeamApplication;
+      if (teamMemberIdentifier !== undefined) application.teamMemberIdentifier = teamMemberIdentifier;
 
       await application.save();
 
@@ -189,6 +193,8 @@ router.post('/autosave', async (req, res) => {
         gearSetup: gearSetup || "",
         location: location || "",
         portfolioUrl: portfolioUrl || "",
+        isTeamApplication: isTeamApplication || false,
+        teamMemberIdentifier: teamMemberIdentifier || "",
         applicationStatus: 'Draft'
       });
 
@@ -222,7 +228,9 @@ router.post('/apply', async (req, res) => {
       niches, 
       gearSetup, 
       location, 
-      portfolioUrl 
+      portfolioUrl,
+      isTeamApplication,
+      teamMemberIdentifier
     } = req.body;
 
     // Validate inputs for final submission
@@ -267,6 +275,8 @@ router.post('/apply', async (req, res) => {
       application.gearSetup = gearSetup || "";
       application.location = location;
       application.portfolioUrl = portfolioUrl || "";
+      application.isTeamApplication = isTeamApplication || false;
+      application.teamMemberIdentifier = teamMemberIdentifier || "";
       application.applicationStatus = 'Pending_API_Review';
       application.createdAt = new Date();
 
@@ -293,6 +303,8 @@ router.post('/apply', async (req, res) => {
         gearSetup: gearSetup || "",
         location,
         portfolioUrl: portfolioUrl || "",
+        isTeamApplication: isTeamApplication || false,
+        teamMemberIdentifier: teamMemberIdentifier || "",
         applicationStatus: 'Pending_API_Review'
       });
 

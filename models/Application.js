@@ -18,6 +18,10 @@ const ApplicationSchema = new mongoose.Schema({
   location: { type: String },
   portfolioUrl: { type: String },
 
+  // Section D: Team & Referrals (Chain Referral grouping)
+  isTeamApplication: { type: Boolean, default: false },
+  teamMemberIdentifier: { type: String, default: "" },
+
   // Section C: System Score Metrics
   universalScoreBaseline: { type: Number, default: 500 }, // Standard starting base
   apiMetrics: {

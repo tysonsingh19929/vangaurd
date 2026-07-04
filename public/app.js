@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const instagramHandleInput = document.getElementById('instagramHandle');
   const portfolioUrlInput = document.getElementById('portfolioUrl');
 
+  // Team Referral Elements
+  const isTeamApplicationCb = document.getElementById('isTeamApplication');
+  const conditionalTeamFields = document.getElementById('conditionalTeamFields');
+  const teamMemberIdentifierInput = document.getElementById('teamMemberIdentifier');
+  const teamReferralVal = document.getElementById('teamReferralVal');
+
   // Validation regex
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
@@ -176,7 +182,9 @@ document.addEventListener('DOMContentLoaded', () => {
       niches: niches,
       gearSetup: gearSetupInput.value.trim(),
       location: locationInput.value.trim(),
-      portfolioUrl: portfolioUrlInput.value.trim()
+      portfolioUrl: portfolioUrlInput.value.trim(),
+      isTeamApplication: isTeamApplicationCb.checked,
+      teamMemberIdentifier: teamMemberIdentifierInput.value.trim()
     };
 
     try {
@@ -231,8 +239,30 @@ document.addEventListener('DOMContentLoaded', () => {
     gearSetupInput,
     locationInput,
     instagramHandleInput,
-    portfolioUrlInput
+    portfolioUrlInput,
+    teamMemberIdentifierInput
   ];
+
+  // Track team checkbox state
+  if (isTeamApplicationCb) {
+    isTeamApplicationCb.addEventListener('change', () => {
+      const isChecked = isTeamApplicationCb.checked;
+      conditionalTeamFields.style.display = isChecked ? 'block' : 'none';
+      if (!isChecked) {
+        teamMemberIdentifierInput.value = '';
+        teamReferralVal.textContent = '...';
+      }
+      performAutosave(); // Immediate save on toggle
+    });
+  }
+
+  // Track team identifier input for text preview
+  if (teamMemberIdentifierInput) {
+    teamMemberIdentifierInput.addEventListener('input', () => {
+      const val = teamMemberIdentifierInput.value.trim();
+      teamReferralVal.textContent = val || '...';
+    });
+  }
 
   inputsToTrack.forEach(input => {
     input.addEventListener('input', () => {
@@ -338,7 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
       gearSetup: gearSetupInput.value.trim(),
       location: locationInput.value.trim(),
       instagramHandle: instagramHandleInput.value.trim(),
-      portfolioUrl: portfolioUrlInput.value.trim()
+      portfolioUrl: portfolioUrlInput.value.trim(),
+      isTeamApplication: isTeamApplicationCb.checked,
+      teamMemberIdentifier: teamMemberIdentifierInput.value.trim()
     };
 
     // UI Loading state
