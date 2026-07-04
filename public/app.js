@@ -243,26 +243,51 @@ document.addEventListener('DOMContentLoaded', () => {
     teamMemberIdentifierInput
   ];
 
-  // Track team checkbox state
+  // Track team checkbox state and update button copy / priority badge
   if (isTeamApplicationCb) {
     isTeamApplicationCb.addEventListener('change', () => {
       const isChecked = isTeamApplicationCb.checked;
+      const chanceBadge = document.getElementById('chance-badge');
+      const chanceVal = document.getElementById('selection-chance-val');
+      
       conditionalTeamFields.style.display = isChecked ? 'block' : 'none';
-      if (!isChecked) {
+      
+      if (isChecked) {
+        if (chanceBadge) chanceBadge.classList.add('boosted');
+        if (chanceVal) {
+          chanceVal.classList.add('boosted');
+          chanceVal.textContent = '+70% Priority Selection Boost';
+        }
+        submitBtn.textContent = '⚡ Submit and Upgrade to Team Status';
+      } else {
+        if (chanceBadge) chanceBadge.classList.remove('boosted');
+        if (chanceVal) {
+          chanceVal.classList.remove('boosted');
+          chanceVal.textContent = 'Normal';
+        }
+        submitBtn.textContent = 'Submit Application to Vanguard Council';
         teamMemberIdentifierInput.value = '';
-        teamReferralVal.textContent = '...';
+        updateReferralNamePreview();
       }
       performAutosave(); // Immediate save on toggle
     });
   }
 
-  // Track team identifier input for text preview
-  if (teamMemberIdentifierInput) {
-    teamMemberIdentifierInput.addEventListener('input', () => {
-      const val = teamMemberIdentifierInput.value.trim();
-      teamReferralVal.textContent = val || '...';
-    });
+  // Update referral name preview text helper
+  function updateReferralNamePreview() {
+    if (teamReferralVal) {
+      const name = legalNameInput.value.trim();
+      teamReferralVal.textContent = name || '[Your Name]';
+    }
   }
+
+  // Bind name input to update invite note preview
+  legalNameInput.addEventListener('input', () => {
+    updateReferralNamePreview();
+  });
+
+  // Run initial sync of referral preview
+  updateReferralNamePreview();
 
   inputsToTrack.forEach(input => {
     input.addEventListener('input', () => {

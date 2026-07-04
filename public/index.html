@@ -188,23 +188,37 @@
                 <span class="error-msg" id="err-portfolioUrl">A valid link to your showreel/portfolio is required</span>
               </div>
 
-              <!-- Section 04: Team Referral (Chain Referral) -->
+              <!-- Section 04: The Vanguard Team Bonus (Optional) -->
               <div class="input-group team-association-group">
+                <div class="team-bonus-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+                  <h3 class="section-block-title" style="margin-bottom: 0;">👥 THE VANGUARD TEAM BONUS (OPTIONAL)</h3>
+                  <div class="selection-chance-badge" id="chance-badge">
+                    <span class="chance-label" style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Selection Chance:</span>
+                    <span class="chance-value" id="selection-chance-val" style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; margin-left: 4px; transition: color 0.3s ease;">Normal</span>
+                  </div>
+                </div>
+                
+                <div class="team-tip-box" style="display: flex; gap: 8px; background-color: rgba(255, 255, 255, 0.01); border-left: 2px solid var(--border-color); padding: 10px 14px; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
+                  <span class="tip-icon" style="font-size: 0.9rem;">💡</span>
+                  <p class="tip-text" style="font-size: 0.78rem; line-height: 1.45; color: var(--text-secondary); margin: 0;">
+                    Applying with a trusted partner reduces project friction by 90%. Teams receive a <strong style="color: var(--accent-gold);">+70% Priority Selection Boost</strong>.
+                  </p>
+                </div>
+
                 <label class="checkbox-container team-checkbox-container">
                   <input type="checkbox" id="isTeamApplication" name="isTeamApplication">
                   <span class="checkbox-custom"></span>
-                  <span class="team-checkbox-text">Apply as a Team/Duo (Increases Selection Chance by 70%)</span>
+                  <span class="team-checkbox-text">I am applying with a Teammate</span>
                 </label>
-                <p class="disclaimer-text" style="margin-top: 4px; font-size: 0.72rem; opacity: 0.7;">
-                  Applying with established teammates reduces pairing overhead of unknown operators by 90%.
-                </p>
 
                 <!-- Conditional Team Member Field -->
                 <div class="conditional-team-fields" id="conditionalTeamFields" style="display: none; margin-top: 16px;">
-                  <label for="teamMemberIdentifier" class="input-label">Partner's Email or Mobile Number</label>
-                  <input type="text" id="teamMemberIdentifier" name="teamMemberIdentifier" class="form-input" placeholder="e.g., team@member.com or +919999999999">
+                  <label for="teamMemberIdentifier" class="input-label">Teammate's Email or Mobile Number</label>
+                  <input type="text" id="teamMemberIdentifier" name="teamMemberIdentifier" class="form-input" placeholder="e.g., name@example.com or +1...">
+                  
+                  <label class="input-label" style="margin-top: 16px; margin-bottom: 6px; display: block;">Custom Invite Note (Sent automatically):</label>
                   <div class="team-referral-text-preview" id="teamReferralTextPreview">
-                    please take me consideration as a team member of <span id="teamReferralVal" style="font-weight: 600;">...</span>
+                    please take me consideration as a team member of <span id="teamReferralVal" style="font-weight: 600;">[Your Name]</span>
                   </div>
                 </div>
               </div>
