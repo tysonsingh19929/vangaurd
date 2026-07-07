@@ -58,10 +58,12 @@
     <section class="info-pane">
       <div class="glow-bg"></div>
       <div class="info-content">
-        <h1 class="hero-headline">You Have Been Chosen.</h1>
-        <h2 class="hero-subtitle-form">MATRIX ENTITY SELECTION</h2>
-        <p class="hero-subhead">
-          Your profile has been selected by the Matrix Entity. You are entering an isolated, double-blind network where elite creators, editors, and promoters coordinate narrative structures. This platform is where we dictate the future of global influence. Shape the world, or be shaped by it.
+        <h1 class="hero-headline">THE SELECTION HAS BEGUN.</h1>
+        <h2 class="hero-subtitle-form" style="text-transform: none; font-size: 1.15rem; font-weight: 500; letter-spacing: normal; line-height: 1.5; color: var(--accent-gold); font-style: italic; margin-bottom: 24px; font-family: var(--font-display);">
+          You have spent years building the screens that the world stares into. Now, it is time to control what they see.
+        </h2>
+        <p class="hero-subhead" style="font-size: 0.95rem; line-height: 1.65; opacity: 0.95;">
+          The current media ecosystem keeps you isolated. They call you a 'creator' to keep you performing on their terms. They delay your payments, micromanage your art, and make you beg for brand deals. That illusion ends today. We are building the Vanguard. When the world's most powerful influencers, editors, promoters, and minds unite under one silent network, we do not just make content—we dictate reality. We decide what the world thinks, what they want, and where the future goes. Enter your coordinates below. Step into the matrix of the new elite.
         </p>
       </div>
     </section>
@@ -73,15 +75,18 @@
         <!-- Onboarding Form Card -->
         <div class="onboarding-card" id="form-card">
           <div class="form-card-header">
-            <h2 class="form-title">Node Onboarding Protocol</h2>
-            <p class="form-subtitle">Secure, Double-Blind Entry Process</p>
+            <h2 class="form-title">Operator Node Evaluation</h2>
+            <p class="form-subtitle">Secure, Double-Blind Ingestion Funnel</p>
           </div>
 
           <form id="onboarding-form" novalidate>
             
             <!-- SECTION A: Core Identity -->
             <div class="form-section-block">
-              <h3 class="section-block-title">01. Core Identity <span class="badge-confidential">Internal Eyes Only</span></h3>
+              <h3 class="section-block-title">01. SYMMETRIC ENCRYPTION INITIALIZATION — ID SECURED</h3>
+              <p class="section-desc" style="font-size: 0.76rem; line-height: 1.45; color: var(--text-secondary); margin-top: 6px; margin-bottom: 16px;">
+                Legal data is ingested solely to process automated smart-escrow payouts via <strong style="color: var(--accent-gold);">Stripe Connect</strong>. Your public profile remains 100% masked from corporate clients under an immutable hexadecimal ID to prevent off-platform contract leaks.
+              </p>
               
               <div class="input-group">
                 <label for="legalName" class="input-label">Full Legal Name</label>
@@ -110,7 +115,7 @@
 
             <!-- SECTION B: Capabilities & Location -->
             <div class="form-section-block">
-              <h3 class="section-block-title">02. Capabilities & Location</h3>
+              <h3 class="section-block-title">02. PERFORMANCE INGESTION FILTERS</h3>
 
               <div class="input-group">
                 <label for="primaryRole" class="input-label">Primary Specialty</label>
@@ -190,15 +195,15 @@
               </div>
             </div>
 
-            <!-- SECTION C: Verification & Portfolio -->
+            <!-- SECTION C: Telemetry Validation & Audit -->
             <div class="form-section-block">
-              <h3 class="section-block-title">03. Verification & Portfolio</h3>
+              <h3 class="section-block-title">03. TELEMETRY VALIDATION & AUDIT</h3>
 
               <div class="input-group">
                 <label for="instagramHandle" class="input-label">Instagram Handle</label>
                 <input type="text" id="instagramHandle" name="instagramHandle" class="form-input" placeholder="e.g., @username" required>
                 <span class="error-msg" id="err-instagramHandle">Instagram handle is required</span>
-                <span class="disclaimer-text">Used via secure Meta API to extract audience reach and metric baselines. Handle remains fully masked from clients.</span>
+                <span class="disclaimer-text">Verified dynamically via Meta Graph OAuth telemetry. Handles and private account statistics remain 100% scrubbed from client-facing search indices.</span>
               </div>
 
               <div class="input-group">
@@ -255,6 +260,22 @@
             <!-- Form Actions -->
             <div class="form-actions">
               <button type="submit" class="submit-btn" id="btn-submit-form">Submit Application to Vanguard Council</button>
+            </div>
+
+            <!-- Security Sign-off Badges -->
+            <div class="security-signoff-block" style="display: flex; justify-content: center; gap: 16px; margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); flex-wrap: wrap;">
+              <div class="sig-badge" style="display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-muted);">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="color: #635bff;"><path d="M12.8 7.3l-5.6-5.6C6.8 1.3 6.3 1 5.8 1H2c-.6 0-1 .4-1 1v3.8c0 .5.3 1 .7 1.4l5.6 5.6c.4.4.9.6 1.4.6.5 0 1-.2 1.4-.6l3.8-3.8c.8-.7.8-1.9 0-2.7z" fill="currentColor"/></svg>
+                <span>Stripe Connect Integration</span>
+              </div>
+              <div class="sig-badge" style="display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-muted);">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="color: #006aff;"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm3.5 6H9.2v4.8H7.3V6H6.1V4.4h1.2V3.6c0-1.2.6-1.9 1.9-1.9h1.3v1.6H9.7c-.6 0-.7.3-.7.7v.8h2.5L11.5 6z" fill="currentColor"/></svg>
+                <span>Meta Graph API Partner</span>
+              </div>
+              <div class="sig-badge" style="display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: var(--text-muted);">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style="color: var(--accent-emerald);"><path d="M8 0L2 3v5c0 4 3 7 6 8 3-1 6-4 6-8V3L8 0zm2.5 7.2l-3 3c-.2.2-.4.3-.7.3s-.5-.1-.7-.3l-1.5-1.5c-.4-.4-.4-1 0-1.4.4-.4 1-.4 1.4 0l.8.8 2.3-2.3c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4z" fill="currentColor"/></svg>
+                <span>Milestone Smart-Escrow</span>
+              </div>
             </div>
 
           </form>
