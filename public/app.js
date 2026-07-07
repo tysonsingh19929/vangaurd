@@ -258,14 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
           chanceVal.classList.add('boosted');
           chanceVal.textContent = '+70% Priority Selection Boost';
         }
-        submitBtn.textContent = '⚡ Submit and Upgrade to Team Status';
+        submitBtn.textContent = "⚡ I'M IN. UPGRADE TO TEAM STATUS";
       } else {
         if (chanceBadge) chanceBadge.classList.remove('boosted');
         if (chanceVal) {
           chanceVal.classList.remove('boosted');
           chanceVal.textContent = 'Normal';
         }
-        submitBtn.textContent = 'Submit Application to Vanguard Council';
+        submitBtn.textContent = "I'M IN. LET'S CHANGE THE FUTURE.";
         teamMemberIdentifierInput.value = '';
         updateReferralNamePreview();
       }
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // UI Loading state
     submitBtn.disabled = true;
-    submitBtn.textContent = "Locking Identity & Finalizing Evaluation...";
+    submitBtn.textContent = "VERIFYING SPOT & JOINING TEAM...";
     errorBanner.style.display = 'none';
     setSyncState('syncing', 'Submitting final application...');
 
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
         errorBanner.textContent = data.message || "Failed to submit application. Verify inputs.";
         errorBanner.style.display = 'block';
         submitBtn.disabled = false;
-        submitBtn.textContent = "Finalize Application for Council Review";
+        submitBtn.textContent = "I'M IN. LET'S CHANGE THE FUTURE.";
         setSyncState('error', 'Submission failed.');
       }
     } catch (err) {
@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
       errorBanner.textContent = "Server Connection Offline. Verify server connectivity.";
       errorBanner.style.display = 'block';
       submitBtn.disabled = false;
-      submitBtn.textContent = "Finalize Application for Council Review";
+      submitBtn.textContent = "I'M IN. LET'S CHANGE THE FUTURE.";
       setSyncState('error', 'Network offline during submit.');
     }
   });
