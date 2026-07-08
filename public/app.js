@@ -444,4 +444,142 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // -------------------------------------------------------------
+  // THREE.JS LOGARITHMIC GALAXY SPIRAL BACKGROUND
+  // -------------------------------------------------------------
+  const galaxyCanvas = document.getElementById('galaxy');
+  if (galaxyCanvas && typeof THREE !== 'undefined') {
+    const renderer = new THREE.WebGLRenderer({canvas: galaxyCanvas, antialias: true, alpha: true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
+
+    // Build spiral galaxy geometry
+    const ARMS = 4;
+    const PARTICLES_PER_ARM = 1400;
+    const total = ARMS * PARTICLES_PER_ARM;
+    const positions = new Float32Array(total * 3);
+    const colors = new Float32Array(total * 3);
+
+    const colorCore = new THREE.Color('#ffffff'); // Bright white center
+    const colorMid  = new THREE.Color('#e2b857'); // Gold mid arms
+    const colorEdge = new THREE.Color('#141414'); // Slate/fading edge
+
+    let idx = 0;
+    for (let a = 0; a < ARMS; a++) {
+      const armOffset = (a / ARMS) * Math.PI * 2;
+      for (let i = 0; i < PARTICLES_PER_ARM; i++) {
+        const t = i / PARTICLES_PER_ARM;              // 0 -> 1 along arm
+        const radius = 2 + t * 34;                      // spiral outward
+        const angle = armOffset + t * 6.5 + (Math.random() - 0.5) * 0.35;
+        const spread = (1 - t) * 0.6 + 0.35;
+        const x = Math.cos(angle) * radius + (Math.random() - 0.5) * spread * 3;
+        const z = Math.sin(angle) * radius + (Math.random() - 0.5) * spread * 3;
+        const y = (Math.random() - 0.5) * (1.2 - t * 0.8);
+
+        positions[idx * 3]     = x;
+        positions[idx * 3 + 1] = y;
+        positions[idx * 3 + 2] = -t * 140; // stretch deep along Z (tunnel)
+
+        const c = colorCore.clone().lerp(colorMid, Math.min(t * 2, 1)).lerp(colorEdge, Math.max(0, t - 0.6) * 2);
+        colors[idx * 3] = c.r;
+        colors[idx * 3 + 1] = c.g;
+        colors[idx * 3 + 2] = c.b;
+        idx++;
+      }
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const mat = new THREE.PointsMaterial({
+      size: 0.34,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.85,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    });
+    const galaxy = new THREE.Points(geo, mat);
+    scene.add(galaxy);
+
+    // Distant starfield
+    const starGeo = new THREE.BufferGeometry();
+    const starCount = 900;
+    const starPos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      starPos[i * 3]     = (Math.random() - 0.5) * 260;
+      starPos[i * 3 + 1] = (Math.random() - 0.5) * 260;
+      starPos[i * 3 + 2] = (Math.random() - 0.5) * 300 - 60;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const starMat = new THREE.PointsMaterial({ size: 0.12, color: '#ffffff', transparent: true, opacity: 0.5 });
+    scene.add(new THREE.Points(starGeo, starMat));
+
+    camera.position.set(0, 6, 14);
+    camera.lookAt(0, 0, -20);
+
+    // Scroll-driven camera descent tracking
+    let scrollProgress = 0;
+    let smoothProgress = 0;
+
+    function updateScroll() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress = max > 0 ? window.scrollY / max : 0;
+    }
+    window.addEventListener('scroll', updateScroll, {passive: true});
+    updateScroll();
+
+    function resize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    window.addEventListener('resize', resize);
+
+    const clock = new THREE.Clock();
+    function animateGalaxy() {
+      requestAnimationFrame(animateGalaxy);
+      const elapsedTime = clock.getElapsedTime();
+
+      // Ease scroll progress for fluid descent travel
+      smoothProgress += (scrollProgress - smoothProgress) * 0.06;
+
+      // Ambient spin
+      galaxy.rotation.y = elapsedTime * 0.03 + smoothProgress * Math.PI * 1.4;
+
+      // Camera plunges deep down the spiral z-axis
+      const depth = smoothProgress * 150;
+      camera.position.z = 14 - depth;
+      camera.position.x = Math.sin(smoothProgress * Math.PI * 2) * 3;
+      camera.position.y = 6 - smoothProgress * 4;
+      camera.lookAt(
+        Math.sin(smoothProgress * Math.PI * 2) * 1.5,
+        -smoothProgress * 2,
+        camera.position.z - 20
+      );
+      camera.rotation.z = Math.sin(smoothProgress * Math.PI * 2) * 0.06;
+
+      renderer.render(scene, camera);
+    }
+    animateGalaxy();
+  }
+
+  // -------------------------------------------------------------
+  // SCROLL PROGRESS SPINE BAR UPDATER
+  // -------------------------------------------------------------
+  const spineFill = document.getElementById('spineFill');
+  if (spineFill) {
+    function updateSpineProgress() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? window.scrollY / max : 0;
+      spineFill.style.height = (progress * 100) + '%';
+      requestAnimationFrame(updateSpineProgress);
+    }
+    updateSpineProgress();
+  }
+
 });
