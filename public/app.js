@@ -456,59 +456,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
 
-    // Build spiral galaxy geometry
-    const ARMS = 4;
-    const PARTICLES_PER_ARM = 1400;
-    const total = ARMS * PARTICLES_PER_ARM;
-    const positions = new Float32Array(total * 3);
-    const colors = new Float32Array(total * 3);
+    // Build 3D Scientific Neural Constellation Network
+    const count = 180;
+    const positions = new Float32Array(count * 3);
+    const velocities = [];
+    const colorArray = new Float32Array(count * 3);
 
-    const colorCore = new THREE.Color('#ffffff'); // Bright white center
-    const colorMid  = new THREE.Color('#e2b857'); // Gold mid arms
-    const colorEdge = new THREE.Color('#141414'); // Slate/fading edge
+    const c1 = new THREE.Color('#ffffff'); // white nodes
+    const c2 = new THREE.Color('#e2b857'); // gold nodes
 
-    let idx = 0;
-    for (let a = 0; a < ARMS; a++) {
-      const armOffset = (a / ARMS) * Math.PI * 2;
-      for (let i = 0; i < PARTICLES_PER_ARM; i++) {
-        const t = i / PARTICLES_PER_ARM;              // 0 -> 1 along arm
-        const radius = 2 + t * 34;                      // spiral outward
-        const angle = armOffset + t * 6.5 + (Math.random() - 0.5) * 0.35;
-        const spread = (1 - t) * 0.6 + 0.35;
-        const x = Math.cos(angle) * radius + (Math.random() - 0.5) * spread * 3;
-        const z = Math.sin(angle) * radius + (Math.random() - 0.5) * spread * 3;
-        const y = (Math.random() - 0.5) * (1.2 - t * 0.8);
+    for (let i = 0; i < count; i++) {
+      // spread deep down the Z-axis to form a tunnel
+      const x = (Math.random() - 0.5) * 60;
+      const y = (Math.random() - 0.5) * 60;
+      const z = -Math.random() * 180;
+      positions[i * 3]     = x;
+      positions[i * 3 + 1] = y;
+      positions[i * 3 + 2] = z;
 
-        positions[idx * 3]     = x;
-        positions[idx * 3 + 1] = y;
-        positions[idx * 3 + 2] = -t * 140; // stretch deep along Z (tunnel)
+      velocities.push({
+        x: (Math.random() - 0.5) * 0.05,
+        y: (Math.random() - 0.5) * 0.05,
+        z: (Math.random() - 0.5) * 0.05
+      });
 
-        const c = colorCore.clone().lerp(colorMid, Math.min(t * 2, 1)).lerp(colorEdge, Math.max(0, t - 0.6) * 2);
-        colors[idx * 3] = c.r;
-        colors[idx * 3 + 1] = c.g;
-        colors[idx * 3 + 2] = c.b;
-        idx++;
-      }
+      // mix white and gold colors
+      const c = Math.random() > 0.4 ? c2 : c1;
+      colorArray[i * 3]     = c.r;
+      colorArray[i * 3 + 1] = c.g;
+      colorArray[i * 3 + 2] = c.b;
     }
 
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    const pointsGeo = new THREE.BufferGeometry();
+    pointsGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    pointsGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
 
-    const mat = new THREE.PointsMaterial({
-      size: 0.34,
+    const pointsMat = new THREE.PointsMaterial({
+      size: 0.8,
       vertexColors: true,
       transparent: true,
-      opacity: 0.85,
-      depthWrite: false,
+      opacity: 0.9,
       blending: THREE.AdditiveBlending
     });
-    const galaxy = new THREE.Points(geo, mat);
-    scene.add(galaxy);
+    const points = new THREE.Points(pointsGeo, pointsMat);
+    scene.add(points);
 
-    // Distant starfield
+    // Connecting lines geometry setup
+    const maxLines = count * 6;
+    const linePositions = new Float32Array(maxLines * 3);
+    const lineColors = new Float32Array(maxLines * 3);
+
+    const linesGeo = new THREE.BufferGeometry();
+    linesGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+    linesGeo.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+
+    const linesMat = new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.28,
+      blending: THREE.AdditiveBlending,
+      linewidth: 1
+    });
+    const lineSegments = new THREE.LineSegments(linesGeo, linesMat);
+    scene.add(lineSegments);
+
+    // Distant starfield backplate
     const starGeo = new THREE.BufferGeometry();
-    const starCount = 900;
+    const starCount = 300;
     const starPos = new Float32Array(starCount * 3);
     for (let i = 0; i < starCount; i++) {
       starPos[i * 3]     = (Math.random() - 0.5) * 260;
@@ -516,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
       starPos[i * 3 + 2] = (Math.random() - 0.5) * 300 - 60;
     }
     starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-    const starMat = new THREE.PointsMaterial({ size: 0.12, color: '#ffffff', transparent: true, opacity: 0.5 });
+    const starMat = new THREE.PointsMaterial({ size: 0.15, color: '#e2b857', transparent: true, opacity: 0.35 });
     scene.add(new THREE.Points(starGeo, starMat));
 
     camera.position.set(0, 6, 14);
@@ -548,20 +562,92 @@ document.addEventListener('DOMContentLoaded', () => {
       // Ease scroll progress for fluid descent travel
       smoothProgress += (scrollProgress - smoothProgress) * 0.06;
 
-      // Ambient spin
-      galaxy.rotation.y = elapsedTime * 0.03 + smoothProgress * Math.PI * 1.4;
+      // Update node positions (drift animation)
+      const posAttr = pointsGeo.getAttribute('position');
+      const coords = posAttr.array;
 
-      // Camera plunges deep down the spiral z-axis
+      for (let i = 0; i < count; i++) {
+        coords[i * 3]     += velocities[i].x;
+        coords[i * 3 + 1] += velocities[i].y;
+        coords[i * 3 + 2] += velocities[i].z;
+
+        // boundary checks to keep them in volume
+        if (Math.abs(coords[i * 3]) > 40) velocities[i].x *= -1;
+        if (Math.abs(coords[i * 3 + 1]) > 40) velocities[i].y *= -1;
+        if (coords[i * 3 + 2] > 10 || coords[i * 3 + 2] < -200) velocities[i].z *= -1;
+      }
+      posAttr.needsUpdate = true;
+
+      // Recalculate line connections dynamically
+      let lineIdx = 0;
+      const lineCoords = linesGeo.getAttribute('position').array;
+      const lineCols = linesGeo.getAttribute('color').array;
+
+      const connectionDistance = 18;
+      const goldColor = new THREE.Color('#e2b857');
+
+      for (let i = 0; i < count; i++) {
+        for (let j = i + 1; j < count; j++) {
+          const dx = coords[i * 3] - coords[j * 3];
+          const dy = coords[i * 3 + 1] - coords[j * 3 + 1];
+          const dz = coords[i * 3 + 2] - coords[j * 3 + 2];
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+          if (dist < connectionDistance && lineIdx < maxLines - 2) {
+            // Add point A
+            lineCoords[lineIdx * 3]     = coords[i * 3];
+            lineCoords[lineIdx * 3 + 1] = coords[i * 3 + 1];
+            lineCoords[lineIdx * 3 + 2] = coords[i * 3 + 2];
+
+            // Add point B
+            lineCoords[(lineIdx + 1) * 3]     = coords[j * 3];
+            lineCoords[(lineIdx + 1) * 3 + 1] = coords[j * 3 + 1];
+            lineCoords[(lineIdx + 1) * 3 + 2] = coords[j * 3 + 2];
+
+            // Set line segment colors (fade based on distance)
+            const alpha = 1.0 - (dist / connectionDistance);
+            const lc = goldColor.clone().multiplyScalar(alpha);
+
+            lineCols[lineIdx * 3]     = lc.r;
+            lineCols[lineIdx * 3 + 1] = lc.g;
+            lineCols[lineIdx * 3 + 2] = lc.b;
+
+            lineCols[(lineIdx + 1) * 3]     = lc.r;
+            lineCols[(lineIdx + 1) * 3 + 1] = lc.g;
+            lineCols[(lineIdx + 1) * 3 + 2] = lc.b;
+
+            lineIdx += 2;
+          }
+        }
+      }
+
+      // Fill remaining line buffers with zero/invisible coordinates
+      for (let i = lineIdx; i < maxLines; i++) {
+        lineCoords[i * 3] = 0;
+        lineCoords[i * 3 + 1] = 0;
+        lineCoords[i * 3 + 2] = 0;
+        lineCols[i * 3] = 0;
+        lineCols[i * 3 + 1] = 0;
+        lineCols[i * 3 + 2] = 0;
+      }
+
+      linesGeo.getAttribute('position').needsUpdate = true;
+      linesGeo.getAttribute('color').needsUpdate = true;
+
+      // Ambient spin and scroll drift
+      points.rotation.y = elapsedTime * 0.015 + smoothProgress * Math.PI * 0.2;
+      lineSegments.rotation.y = elapsedTime * 0.015 + smoothProgress * Math.PI * 0.2;
+
+      // Camera plunges deep down the node network z-axis
       const depth = smoothProgress * 150;
       camera.position.z = 14 - depth;
-      camera.position.x = Math.sin(smoothProgress * Math.PI * 2) * 3;
-      camera.position.y = 6 - smoothProgress * 4;
+      camera.position.x = Math.sin(smoothProgress * Math.PI * 1.5) * 4;
+      camera.position.y = 6 - smoothProgress * 3;
       camera.lookAt(
-        Math.sin(smoothProgress * Math.PI * 2) * 1.5,
-        -smoothProgress * 2,
+        Math.sin(smoothProgress * Math.PI * 1.5) * 2,
+        -smoothProgress * 1.5,
         camera.position.z - 20
       );
-      camera.rotation.z = Math.sin(smoothProgress * Math.PI * 2) * 0.06;
 
       renderer.render(scene, camera);
     }
