@@ -11,8 +11,8 @@
   --border-color: #2A2A2A;
   
   --text-primary: #FFFFFF;
-  --text-secondary: #A3A3A3;
-  --text-muted: #737373;
+  --text-secondary: #E5E5E5;
+  --text-muted: #A3A3A3;
   
   --accent-gold: #E2B857;
   --accent-emerald: #10B981;
@@ -1057,10 +1057,6 @@ canvas#galaxy {
   background-color: #0A0A0A;
 }
 
-.vignette {
-  position: fixed; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 30%, rgba(10,10,10,0.55) 75%, rgba(10,10,10,0.95) 100%);
-}
 
 .grain {
   position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0.035; mix-blend-mode: overlay;
